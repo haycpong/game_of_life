@@ -9,9 +9,15 @@ This project has been test under Python 3.9.6
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install game_of_life.
 
+Install to the site-packages:
 ```bash
-pip install game_of_life
+python -m pip install git+https://github.com/haycpong/game_of_life
 ```
+or a particular directory:
+```bash
+python -m pip install git+https://github.com/haycpong/game_of_life -t some_directory
+```
+
 
 ## Usage
 
