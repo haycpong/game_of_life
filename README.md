@@ -21,6 +21,10 @@ or a particular directory:
 ```bash
 python -m pip install git+https://github.com/haycpong/game_of_life -t some_directory
 ```
+or optionally, to install without dependencies:
+```bash
+python -m pip install --no-deps git+https://github.com/haycpong/game_of_life -t some_directory
+```
 
 ## Usage
 
