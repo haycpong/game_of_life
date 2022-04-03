@@ -44,7 +44,7 @@ setup(
                     ],
     cmdclass={'test': PyTest},
     author_email='haycpong@gmail.com',
-    description='Conway's Game of Life',
+    description='Conway''s Game of Life',
     long_description=long_description,
     packages=['game_of_life'],
     include_package_data=True,
