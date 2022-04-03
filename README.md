@@ -5,6 +5,10 @@ The Game of Life, also known simply as Life, is a cellular automaton devised by 
 
 This project has been test under Python 3.9.6
 
+## Requirements
+numpy==1.22.3
+pygame==2.1.2
+
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install game_of_life.
@@ -17,7 +21,6 @@ or a particular directory:
 ```bash
 python -m pip install git+https://github.com/haycpong/game_of_life -t some_directory
 ```
-
 
 ## Usage
 
