@@ -6,7 +6,7 @@ import codecs
 import os
 import sys
 
-import game_of_life
+import game_of_life.version
 
 here = os.path.abspath(os.path.dirname(__file__))
 
