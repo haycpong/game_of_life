@@ -34,7 +34,7 @@ class PyTest(TestCommand):
 
 setup(
     name='game_of_life',
-    version=game_of_life.__version__,
+    version=game_of_life.version.__version__,
     url='http://github.com/haycpong/game_of_life/',
     license='Apache Software License',
     author='Jeff Knupp',
