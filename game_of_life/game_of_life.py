@@ -112,10 +112,16 @@ class GameofLife:
     def get_grid_state(self, x, y):
         return self.grid[x,y]
 
-    def regenerate(self):
-        """randomly generate population"""
-        self.grid = np.random.randint(0, 2, size=(self.rows, self.columns), dtype=bool)
+    def fill(self):
+        """fill all live cell"""
+        self.grid = np.random.randint(1, 2, size=(self.rows, self.columns), dtype=bool)
 
     def clear(self):
         """clear all"""
         self.grid = np.random.randint(0, 1, size=(self.rows, self.columns), dtype=bool)
+
+    def regenerate(self):
+        """randomly generate population"""
+        self.grid = np.random.randint(0, 2, size=(self.rows, self.columns), dtype=bool)
+
+

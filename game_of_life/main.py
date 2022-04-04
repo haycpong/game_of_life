@@ -65,6 +65,10 @@ def update_button(msg,x,y,w,h,inactive_color,active_color,action=None):
     (text_width, text_height) = fonts[1].size(str(msg))
     screen.blit(button_text, (x+(w-text_width)/2, y+(h-text_height)/2) )
 
+def get_pen():
+    global pen_on
+    return pen_on
+
 def set_pen_on():
     global pen_on
     pen_on=True
@@ -110,7 +114,10 @@ if __name__ == '__main__':
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_e:
-                pen_on = ~pen_on
+                if (get_pen()):
+                    set_pen_off()
+                else:
+                    set_pen_on()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pause:
@@ -152,11 +159,11 @@ if __name__ == '__main__':
         update_button("Pause",100,440,100,30,"darkgreen","darkgreen",pause_game)
         update_button("Update",200,440,100,30,"green","green",None)
 
+    update_button("Fill",350,440,50,30,"yellow4","yellow",game_obj.fill)
+    update_button("Clear",400,440,50,30,"yellow4","yellow",game_obj.clear)
+    update_button("Regenerate",450,440,100,30,"yellow4","yellow",game_obj.regenerate)
 
-    update_button("Clear",300,440,100,30,"yellow4","yellow",game_obj.clear)
-    update_button("Regenerate",400,440,100,30,"yellow4","yellow",game_obj.regenerate)
-
-    update_button("Quit",500,440,100,30,"darkred","red",quit_game)
+    update_button("Quit",550,440,50,30,"darkred","red",quit_game)
 
 
     pygame.display.update()
