@@ -6,7 +6,7 @@ The Game of Life, also known simply as Life, is a cellular automaton devised by 
 This project has been test under Python 3.9.6
 
 ## Requirements
-numpy==1.22.3
+numpy==1.22.3<br />
 pygame==2.1.2
 
 ## Installation
