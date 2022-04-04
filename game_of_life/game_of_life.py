@@ -6,6 +6,17 @@ Function
     draw_grid()
     update_grid()
     update_cell()
+    get_grid_pos(x, y)
+    alternate_grid_state(x, y)
+    set_grid_live(x, y)
+    get_grid_state(x, y)
+    fill()
+    clear()
+    regenerate()
+    update_generations(num)
+    reset_generations()
+    get_generations()
+    get_generations_arr()
 """
 
 import pygame
@@ -30,8 +41,13 @@ class GameofLife:
         self.columns = int(height / scale)
         self.rows = int(width / scale)
 
+        self.cur_gen_idx=0
+        self.generations = [0] * 500
+
         self.regenerate() 
+
         print ("screen(%d,%d),scale(%d), grid(%d,%d)" % (self.width, self.height, scale, self.rows, self.columns))
+        self.update_generations(0)
 
     def run(self):
         """"Update and redraw the current grid state"""
@@ -49,13 +65,16 @@ class GameofLife:
 
     def update_grid(self):
         """Updating the grid"""
+        num_live = 0
         updated_grid = self.grid.copy()
         for row in range(updated_grid.shape[0]):
             for col in range(updated_grid.shape[1]):
+                if (self.grid[row,col]):
+                    num_live += 1
                 updated_grid[row, col] = self.update_cell(row, col)
 
         self.grid = updated_grid
-
+        self.update_generations(num_live)
 
     def update_cell(self, x, y):
         """Update single cells"""
@@ -114,14 +133,38 @@ class GameofLife:
 
     def fill(self):
         """fill all live cell"""
-        self.grid = np.random.randint(1, 2, size=(self.rows, self.columns), dtype=bool)
+        self.grid = np.ndarray(shape=(self.rows, self.columns), dtype=bool)
+        self.grid.fill(True)
+        self.reset_generations()
 
     def clear(self):
-        """clear all"""
-        self.grid = np.random.randint(0, 1, size=(self.rows, self.columns), dtype=bool)
+        """set all dead"""
+        self.grid = np.ndarray(shape=(self.rows, self.columns), dtype=bool)
+        self.grid.fill(False)
+        self.reset_generations()
 
     def regenerate(self):
         """randomly generate population"""
         self.grid = np.random.randint(0, 2, size=(self.rows, self.columns), dtype=bool)
+        self.reset_generations()
 
+    def update_generations(self, num):
+        """record generations and number of live cells"""
+        self.generations[self.cur_gen_idx] = num
+#        print(self.cur_gen_idx,self.generations[self.cur_gen_idx],num, len(self.generations))
+
+        self.cur_gen_idx += 1
+        if (self.cur_gen_idx==len(self.generations)):
+            self.cur_gen_idx=0
+
+    def reset_generations(self):
+        self.cur_gen_idx=0
+        self.generations[0] = 0
+
+    def get_generations(self):
+#        print(self.cur_gen_idx,self.generations[self.cur_gen_idx])
+        return [self.cur_gen_idx, self.generations[self.cur_gen_idx]]
+
+    def get_generations_arr(self):
+        return self.generations
 

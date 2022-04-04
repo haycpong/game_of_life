@@ -127,6 +127,7 @@ if __name__ == '__main__':
             if pen_on:
                 game_obj.set_grid_live(grid_x,grid_y)
 
+    gens = game_obj.get_generations()
 
     #update game
     if not(pause):
@@ -141,6 +142,18 @@ if __name__ == '__main__':
     update_text(fonts[0],'Pos('+str(mouse_x)+','+str(mouse_y)+')', 0, "green", (98,0))
     update_text(fonts[0],'Grid('+str(grid_x)+','+str(grid_y)+')', 0, "blue", (260,0))
     update_text(fonts[0],'Press e:toggle pen', 0, "blue", (400,0))
+
+    #plot graph
+    pygame.draw.rect(screen,(0,0,0),(0,400,WIDTH,100))
+    x0,y0 = 100, 430
+    arr =  game_obj.get_generations_arr()
+    for i in range (len(arr)):
+      pygame.draw.rect(screen, "green",(x0+i, y0- int(arr[i]/8),1,1))
+
+
+    #update generations info
+    update_text(fonts[1],'(gen,n):'+str(gens), 0, "green", (5,400))
+#    print (str(game_obj.get_generations()))
 
     #update button
     update_text(fonts[1],'Pen:', 0, "green", (5,445))
