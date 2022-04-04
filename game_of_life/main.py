@@ -7,11 +7,13 @@ This file is doing the tasks:
     Running the game loop
 """
 import sys
+import math
 import pygame
 from game_of_life import GameofLife
 
 WIDTH = 640
 HEIGHT = 480
+SCALE = 10
 EXPECTED_FPS = 30
 pause = False
 pen_on = False
@@ -97,7 +99,7 @@ def quit_game():
 if __name__ == '__main__':
   #initialize game setting
   init_game()
-  game_obj = GameofLife(screen, scale=20)
+  game_obj = GameofLife(screen, scale=SCALE)
 
   while True:
     clock.tick(EXPECTED_FPS)
@@ -148,7 +150,11 @@ if __name__ == '__main__':
     x0,y0 = 100, 430
     arr =  game_obj.get_generations_arr()
     for i in range (len(arr)):
-      pygame.draw.rect(screen, "green",(x0+i, y0- int(arr[i]/8),1,1))
+      max_value =  int(WIDTH*HEIGHT/SCALE/SCALE)
+      max_y = 200
+      y = int (max_y * arr[i]/max_value)
+      pygame.draw.line(screen,(0,0,0),(x0,y0),(x0,y0-max_y),1)
+      pygame.draw.rect(screen, "green",(x0+i, y0- y,1,1))
 
 
     #update generations info

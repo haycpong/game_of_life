@@ -42,6 +42,7 @@ class GameofLife:
         self.rows = int(width / scale)
 
         self.cur_gen_idx=0
+        self.cur_life = 0
         self.generations = [0] * 500
 
         self.regenerate() 
@@ -74,6 +75,7 @@ class GameofLife:
                 updated_grid[row, col] = self.update_cell(row, col)
 
         self.grid = updated_grid
+        self.cur_life = num_live
         self.update_generations(num_live)
 
     def update_cell(self, x, y):
@@ -151,7 +153,7 @@ class GameofLife:
     def update_generations(self, num):
         """record generations and number of live cells"""
         self.generations[self.cur_gen_idx] = num
-#        print(self.cur_gen_idx,self.generations[self.cur_gen_idx],num, len(self.generations))
+#        print(self.cur_gen_idx,self.cur_life, num, len(self.generations))
 
         self.cur_gen_idx += 1
         if (self.cur_gen_idx==len(self.generations)):
@@ -162,8 +164,8 @@ class GameofLife:
         self.generations[0] = 0
 
     def get_generations(self):
-#        print(self.cur_gen_idx,self.generations[self.cur_gen_idx])
-        return [self.cur_gen_idx, self.generations[self.cur_gen_idx]]
+#        print(self.cur_gen_idx,self.cur_life)
+        return [self.cur_gen_idx, self.cur_life]
 
     def get_generations_arr(self):
         return self.generations
