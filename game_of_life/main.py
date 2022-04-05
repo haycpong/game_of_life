@@ -115,21 +115,24 @@ if __name__ == '__main__':
             quit_game()
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_e:
-                if (get_pen()):
-                    set_pen_off()
-                else:
-                    set_pen_on()
+            if (pause):
+                if event.key == pygame.K_e:
+                    if (get_pen()):
+                        set_pen_off()
+                    else:
+                        set_pen_on()
+
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pause:
                 game_obj.alternate_grid_state(grid_x,grid_y)
 
         if event.type == pygame.MOUSEMOTION:
-            if pen_on:
-                game_obj.set_grid_live(grid_x,grid_y)
+            if(pause):
+                if pen_on:
+                    game_obj.set_grid_live(grid_x,grid_y)
 
-    gens = game_obj.get_generations()
+    gens = game_obj.get_generations() #return (the i-th generations, num of lived cell)
 
     #update game
     if not(pause):
@@ -143,11 +146,13 @@ if __name__ == '__main__':
     #update mouse in which grid
     update_text(fonts[0],'Pos('+str(mouse_x)+','+str(mouse_y)+')', 0, "green", (98,0))
     update_text(fonts[0],'Grid('+str(grid_x)+','+str(grid_y)+')', 0, "blue", (260,0))
-    update_text(fonts[0],'Press e:toggle pen', 0, "blue", (400,0))
+
+    if pause:
+        update_text(fonts[0],'Press e:toggle pen', 0, "blue", (400,0))
 
     #plot graph
     pygame.draw.rect(screen,(0,0,0),(0,400,WIDTH,100))
-    x0,y0 = 100, 430
+    x0,y0 = 105, 430
     arr =  game_obj.get_generations_arr()
     for i in range (len(arr)):
       max_value =  int(WIDTH*HEIGHT/SCALE/SCALE)
@@ -162,25 +167,30 @@ if __name__ == '__main__':
 #    print (str(game_obj.get_generations()))
 
     #update button
-    update_text(fonts[1],'Pen:', 0, "green", (5,445))
 
-    if pen_on:
-        update_button("on",50,440,25,30,"green","green",None)
-        update_button("off",75,440,25,30,"darkgreen","darkgreen",set_pen_off)
-    else:
-        update_button("on",50,440,25,30,"darkgreen","darkgreen",set_pen_on)
-        update_button("off",75,440,25,30,"green","green",None)
-
-    if pause:
-        update_button("Pause",100,440,100,30,"green","green",None)
-        update_button("Update",200,440,100,30,"darkgreen","darkgreen",resume_game)
-    else:
-        update_button("Pause",100,440,100,30,"darkgreen","darkgreen",pause_game)
+    if not(pause): 
+        update_button("Pause",100,440,100,30,"darkgreen","green",pause_game)
         update_button("Update",200,440,100,30,"green","green",None)
 
-    update_button("Fill",350,440,50,30,"yellow4","yellow",game_obj.fill)
-    update_button("Clear",400,440,50,30,"yellow4","yellow",game_obj.clear)
-    update_button("Regenerate",450,440,100,30,"yellow4","yellow",game_obj.regenerate)
+        update_button("Fill",350,440,50,30,"yellow4","yellow4",None)
+        update_button("Clear",400,440,50,30,"yellow4","yellow4",None)
+        update_button("Regenerate",450,440,100,30,"yellow4","yellow4",None)
+    else:
+        update_text(fonts[1],'Pen:', 0, "green", (5,445))
+        if pen_on:
+            update_button("on",50,440,25,30,"green","green",None)
+            update_button("off",75,440,25,30,"darkgreen","green",set_pen_off)
+        else:
+            update_button("on",50,440,25,30,"darkgreen","green",set_pen_on)
+            update_button("off",75,440,25,30,"green","green",None)
+
+        update_button("Pause",100,440,100,30,"green","green",None)
+        update_button("Update",200,440,100,30,"darkgreen","green",resume_game)
+
+        update_button("Fill",350,440,50,30,"yellow4","yellow",game_obj.fill)
+        update_button("Clear",400,440,50,30,"yellow4","yellow",game_obj.clear)
+        update_button("Regenerate",450,440,100,30,"yellow4","yellow",game_obj.regenerate)
+
 
     update_button("Quit",550,440,50,30,"darkred","red",quit_game)
 
