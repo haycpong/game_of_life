@@ -13,7 +13,7 @@ from game_of_life import GameofLife
 
 WIDTH = 640
 HEIGHT = 480
-SCALE = 10
+SCALE = 8
 EXPECTED_FPS = 30
 pause = False
 pen_on = False
@@ -154,12 +154,15 @@ if __name__ == '__main__':
     pygame.draw.rect(screen,(0,0,0),(0,400,WIDTH,100))
     x0,y0 = 105, 430
     arr =  game_obj.get_generations_arr()
-    for i in range (len(arr)):
+    s = len(arr)
+    for i in range (s):
       max_value =  int(WIDTH*HEIGHT/SCALE/SCALE)
       max_y = 200
       y = int (max_y * arr[i]/max_value)
-      pygame.draw.line(screen,(0,0,0),(x0,y0),(x0,y0-max_y),1)
-      pygame.draw.rect(screen, "green",(x0+i, y0- y,1,1))
+      pygame.draw.line(screen,(0,0,0),(x0,y0),(x0,y0-int(1)),1)
+      pygame.draw.rect(screen, "green",(x0+i, y0-y,1,1))
+
+    pygame.draw.line(screen,"green",(x0,y0),(x0+s,y0),1)
 
 
     #update generations info
